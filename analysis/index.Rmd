@@ -8,4 +8,5 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+A list of data QC pages.
+### <a href="qc_210225.html">Quality Check 2021_02_25</a>
