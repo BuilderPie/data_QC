@@ -8,5 +8,5 @@ editor_options:
   chunk_output_type: console
 ---
 
-A list of data QC pages.
+## List of data QC pages. <br />
 ### <a href="qc_210225.html">Quality Check 2021_02_25</a>
