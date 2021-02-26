@@ -51,7 +51,7 @@ print(Heatmap(cor_res,
 -----
 
 ## **Heatmap - Expression ** 
-```{r, message=FALSE, warning=FALSE,fig.width = 5,fig.height=10}
+```{r, message=FALSE, warning=FALSE,fig.width = 6,fig.height=10}
 min_val = min(df[,], na.rm = T)
 max_val = max(df[,], na.rm = T)
 mid_val = (min_val + max_val) / 2
@@ -67,7 +67,7 @@ print(Heatmap(df[,],
 -----
 
 ## **Heatmap - Expression wo MAPT ** 
-```{r, message=FALSE, warning=FALSE,fig.width = 5,fig.height=10}
+```{r, message=FALSE, warning=FALSE,fig.width = 6,fig.height=10}
 df_1 = df[-which(rownames(df) == "MAPT"),]
 
 min_val = min(df_1, na.rm = T)
@@ -85,7 +85,7 @@ print(Heatmap(df_1,
 -----
 
 ## **Heatmap - Expression wo MAPT | Majorsat** 
-```{r, message=FALSE, warning=FALSE,fig.width = 5,fig.height=10}
+```{r, message=FALSE, warning=FALSE,fig.width = 6,fig.height=10}
 df_1 = df[-which((rownames(df) == "MAPT") | (rownames(df) == "Majorsat")),]
 
 min_val = min(df_1, na.rm = T)
@@ -103,7 +103,7 @@ print(Heatmap(df_1,
 -----
 
 ## **Heatmap - Expression wo MAPT | Majorsat | S100b** 
-```{r, message=FALSE, warning=FALSE,fig.width = 5,fig.height=10}
+```{r, message=FALSE, warning=FALSE,fig.width = 6,fig.height=10}
 df_1 = df[-which((rownames(df) == "MAPT") | (rownames(df) == "Majorsat") | (rownames(df) == "S100b")),]
 
 min_val = min(df_1, na.rm = T)
@@ -120,7 +120,7 @@ print(Heatmap(df_1,
 -----
 
 ## **Heatmap - Expression wo MAPT | Majorsat | S100b | Sting1** 
-```{r, message=FALSE, warning=FALSE,fig.width = 5,fig.height=10}
+```{r, message=FALSE, warning=FALSE,fig.width = 6,fig.height=10}
 df_1 = df[-which((rownames(df) == "MAPT") | (rownames(df) == "Majorsat") | (rownames(df) == "S100b") | (rownames(df) == "Sting1")),]
 
 min_val = min(df_1, na.rm = T)
@@ -132,5 +132,22 @@ print(Heatmap(df_1,
               na_col = "black",
               column_title = paste0("Expression wo MAPT|Majorsat|S100b|Sting1"),
               heatmap_legend_param = list(title = "Expression\nLevel")))
+``` 
+
+-----
+
+## **Heatmap - log2(Expression)** 
+```{r, message=FALSE, warning=FALSE,fig.width = 6,fig.height=10}
+df_1 = log2(df)
+
+min_val = min(df_1, na.rm = T)
+max_val = max(df_1, na.rm = T)
+mid_val = 0
+           
+print(Heatmap(df_1, 
+              col = colorRamp2(c(-10, mid_val, 10), c("blue", "white", "red")),
+              na_col = "black",
+              column_title = paste0("log2(Expression) | min=", sprintf("%.1f", min_val), " | max=", sprintf("%.1f", max_val)),
+              heatmap_legend_param = list(title = "log2\nExpression\nLevel")))
 ``` 
        
