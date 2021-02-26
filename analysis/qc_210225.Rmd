@@ -4,7 +4,7 @@ author: "Dian Li"
 date: "2021-02-25"
 output: 
   workflowr::wflow_html:
-    toc: false
+    toc: true
     number_sections: false
     toc_depth: 2
     df_print: paged
