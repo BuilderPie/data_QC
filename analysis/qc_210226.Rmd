@@ -1,0 +1,98 @@
+---
+title: "Quality Check"
+author: "Dian Li"
+date: "2021-02-26"
+output: 
+  workflowr::wflow_html:
+    toc: true
+    number_sections: false
+    toc_depth: 2
+    df_print: paged
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(cache = FALSE, message = FALSE)
+library(workflowr)
+```
+
+## **Heatmap - Correlation** 
+
+```{r, message=FALSE, warning=FALSE}
+library(workflowr)
+# library(ggfortify)
+library(ComplexHeatmap)
+library(openxlsx)
+library(circlize)
+```
+
+```{r, message=FALSE, warning=FALSE,fig.width = 10,fig.height=10}
+filePath = ("../private_data/210225/batch 2.xlsx")
+df_b2 = read.xlsx(filePath, rowNames = TRUE, check.names = T)
+head(df_b2)
+
+filePath = ("../private_data/210225/batch 6.xlsx")
+df_b6 = read.xlsx(filePath, rowNames = TRUE, check.names = T)
+head(df_b6)
+
+colnames(df_b2) = paste0(colnames(df_b2), "_b2")
+colnames(df_b6) = paste0(colnames(df_b6), "_b6")
+
+df = merge(df_b2, df_b6, by = 0)
+rownames(df) = df$Row.names
+df = df[,-which(colnames(df) == "Row.names")]
+```
+
+-----
+
+## **Batch 2 & 6 - log2(Expression)** 
+```{r, message=FALSE, warning=FALSE,fig.width = 10,fig.height=10}
+df_b2 = log2(df_b2)
+df_b6 = log2(df_b6)
+df = log2(df)
+
+min_val = min(df, na.rm = T)
+max_val = max(df, na.rm = T)
+mid_val = 0
+           
+print(Heatmap(df, 
+              col = colorRamp2(c(-10, mid_val, 10), c("blue", "white", "red")),
+              na_col = "black",
+              column_title = paste0("Batch 2 & 6; log2(Expression) | min=", sprintf("%.1f", min_val), " | max=", sprintf("%.1f", max_val)),
+              heatmap_legend_param = list(title = "log2\nExpression\nLevel")))
+``` 
+
+-----
+       
+## **Batch 2 - log2(Expression)** 
+```{r, message=FALSE, warning=FALSE,fig.width = 10,fig.height=10}
+min_val = min(df_b2, na.rm = T)
+max_val = max(df_b2, na.rm = T)
+mid_val = 0
+           
+print(Heatmap(df_b2, 
+              col = colorRamp2(c(-10, mid_val, 10), c("blue", "white", "red")),
+              na_col = "black",
+              column_title = paste0("Batch 2; log2(Expression) | min=", sprintf("%.1f", min_val), " | max=", sprintf("%.1f", max_val)),
+              heatmap_legend_param = list(title = "log2\nExpression\nLevel")))
+``` 
+
+-----
+       
+## **Batch 6 - log2(Expression)** 
+```{r, message=FALSE, warning=FALSE,fig.width = 10,fig.height=10}
+min_val = min(df_b6, na.rm = T)
+max_val = max(df_b6, na.rm = T)
+mid_val = 0
+           
+print(Heatmap(df_b6, 
+              col = colorRamp2(c(-10, mid_val, 10), c("blue", "white", "red")),
+              na_col = "black",
+              column_title = paste0("Batch 6; log2(Expression) | min=", sprintf("%.1f", min_val), " | max=", sprintf("%.1f", max_val)),
+              heatmap_legend_param = list(title = "log2\nExpression\nLevel")))
+``` 
+
+-----
+
