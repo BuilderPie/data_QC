@@ -436,16 +436,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomBuilderPiedataQCtree228b615da97b2215c12eaeacc510e2cc470cbceetargetblank228b615a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/BuilderPie/data_QC/tree/228b615da97b2215c12eaeacc510e2cc470cbcee" target="_blank">228b615</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomBuilderPiedataQCtree1ee7e111181df0c085b0c7b795de0dccb300dd7ftargetblank1ee7e11a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/BuilderPie/data_QC/tree/1ee7e111181df0c085b0c7b795de0dccb300dd7f" target="_blank">1ee7e11</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomBuilderPiedataQCtree228b615da97b2215c12eaeacc510e2cc470cbceetargetblank228b615a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomBuilderPiedataQCtree1ee7e111181df0c085b0c7b795de0dccb300dd7ftargetblank1ee7e11a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/BuilderPie/data_QC/tree/228b615da97b2215c12eaeacc510e2cc470cbcee" target="_blank">228b615</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/BuilderPie/data_QC/tree/1ee7e111181df0c085b0c7b795de0dccb300dd7f" target="_blank">1ee7e11</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -489,6 +489,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/BuilderPie/data_QC/blob/1ee7e111181df0c085b0c7b795de0dccb300dd7f/analysis/qc_210225.Rmd" target="_blank">1ee7e11</a>
+</td>
+<td>
+BuilderPie
+</td>
+<td>
+2021-02-25
+</td>
+<td>
+Publish the initial files for myproject
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/BuilderPie/data_QC/327ea6ee96f568e41c19273494ba3d5aa2daa3f4/docs/qc_210225.html" target="_blank">327ea6e</a>
+</td>
+<td>
+BuilderPie
+</td>
+<td>
+2021-02-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -583,7 +617,8 @@ head(df)</code></pre>
 print(Heatmap(cor_res, 
               col = colorRamp2(c(min(cor_res, na.rm = T), 0, c(max(cor_res, na.rm = T))), c(&quot;blue&quot;, &quot;white&quot;, &quot;red&quot;)),
               na_col = &quot;black&quot;,
-              column_title = paste0(&quot;Correlation Heatmap&quot;)))</code></pre>
+              column_title = paste0(&quot;Correlation Heatmap&quot;),
+              heatmap_legend_param = list(title = &quot;Pearson\nCorrelation&quot;)))</code></pre>
 <p><img src="figure/qc_210225.Rmd/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
@@ -609,6 +644,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/BuilderPie/data_QC/blob/327ea6ee96f568e41c19273494ba3d5aa2daa3f4/docs/figure/qc_210225.Rmd/unnamed-chunk-2-1.png" target="_blank">327ea6e</a>
+</td>
+<td>
+BuilderPie
+</td>
+<td>
+2021-02-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/BuilderPie/data_QC/blob/9f194a591d46eb944015a7f4416fdf0182de35c5/docs/figure/qc_210225.Rmd/unnamed-chunk-2-1.png" target="_blank">9f194a5</a>
 </td>
 <td>
@@ -626,8 +672,46 @@ BuilderPie
 print(Heatmap(cor_res, 
               col = colorRamp2(c(min(cor_res, na.rm = T), 0, c(max(cor_res, na.rm = T))), c(&quot;blue&quot;, &quot;white&quot;, &quot;red&quot;)),
               na_col = &quot;black&quot;,
-              column_title = paste0(&quot;Correlation Heatmap&quot;)))</code></pre>
+              column_title = paste0(&quot;Correlation Heatmap&quot;),
+              heatmap_legend_param = list(title = &quot;Pearson\nCorrelation&quot;)))</code></pre>
 <p><img src="figure/qc_210225.Rmd/unnamed-chunk-2-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-2">
+Past versions of unnamed-chunk-2-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/BuilderPie/data_QC/blob/327ea6ee96f568e41c19273494ba3d5aa2daa3f4/docs/figure/qc_210225.Rmd/unnamed-chunk-2-2.png" target="_blank">327ea6e</a>
+</td>
+<td>
+BuilderPie
+</td>
+<td>
+2021-02-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
