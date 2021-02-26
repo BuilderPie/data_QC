@@ -37,12 +37,14 @@ cor_res = cor((df[,-which(colnames(df)=="GFP1")]))
 print(Heatmap(cor_res, 
               col = colorRamp2(c(min(cor_res, na.rm = T), 0, c(max(cor_res, na.rm = T))), c("blue", "white", "red")),
               na_col = "black",
-              column_title = paste0("Correlation Heatmap")))
+              column_title = paste0("Correlation Heatmap"),
+              heatmap_legend_param = list(title = "Pearson\nCorrelation")))
 
 cor_res = cor(t(df))
 print(Heatmap(cor_res, 
               col = colorRamp2(c(min(cor_res, na.rm = T), 0, c(max(cor_res, na.rm = T))), c("blue", "white", "red")),
               na_col = "black",
-              column_title = paste0("Correlation Heatmap")))
+              column_title = paste0("Correlation Heatmap"),
+              heatmap_legend_param = list(title = "Pearson\nCorrelation")))
 ```
 
