@@ -4,7 +4,7 @@ author: "Dian Li"
 date: "2021-02-25"
 output: 
   workflowr::wflow_html:
-    toc: true
+    toc: false
     number_sections: false
     toc_depth: 2
     df_print: paged
@@ -28,12 +28,18 @@ library(openxlsx)
 library(circlize)
 ```
 
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE,fig.width = 10,fig.height=10}
 filePath = ("../private_data/210225/batch 2.xlsx")
 df = read.xlsx(filePath, rowNames = TRUE, check.names = T)
 head(df)
 
 cor_res = cor((df[,-which(colnames(df)=="GFP1")]))
+print(Heatmap(cor_res, 
+              col = colorRamp2(c(min(cor_res, na.rm = T), 0, c(max(cor_res, na.rm = T))), c("blue", "white", "red")),
+              na_col = "black",
+              column_title = paste0("Correlation Heatmap")))
+
+cor_res = cor(t(df))
 print(Heatmap(cor_res, 
               col = colorRamp2(c(min(cor_res, na.rm = T), 0, c(max(cor_res, na.rm = T))), c("blue", "white", "red")),
               na_col = "black",
