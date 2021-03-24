@@ -1,0 +1,111 @@
+---
+title: "Quality Check"
+author: "Dian Li"
+date: "`r Sys.Date()`"
+output: 
+  workflowr::wflow_html:
+    toc: true
+    number_sections: false
+    toc_depth: 2
+    df_print: paged
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(cache = FALSE, message = FALSE)
+library(workflowr)
+```
+
+## **Heatmap - Correlation** 
+
+```{r, message=FALSE, warning=FALSE}
+# library(workflowr)
+# library(ggfortify)
+library(MAGeCKFlute)
+library(openxlsx)
+library(circlize)
+```
+
+```{r, message=FALSE, warning=FALSE,fig.width = 10,fig.height=10}
+filePath = ("../private_data/210315/cornea_pkfm.xlsx")
+df = read.xlsx(filePath, rowNames = TRUE, check.names = T, sheet = "Sheet1")
+
+# tmp = allDE
+# tmp[which(tmp$padj < 1e-30), 'padj'] = 1e-30
+# allDE_filter_areg = tmp
+# 
+# tmp = allDE
+# tmp[which(tmp$padj < 1e-180), 'padj'] = 1e-180
+# allDE_filter_180 = tmp
+
+vs_list = c("VS4", "VS5", "VS6")
+lfc_list_pre = lapply(vs_list, FUN = function(x) grep(paste0("^",x), colnames(df), ignore.case = T))
+df_num = df[, c(unlist(lfc_list_pre), grep("Symbol", colnames(df), ignore.case = T)), drop = F]
+df_num = df_num[, -grep("Mark", colnames(df_num), ignore.case = T), drop = F]
+col_df_num = colnames(df_num)
+df_num[, paste0(vs_list, ".Log2FC")] = do.call(cbind, lapply(vs_list, FUN = function(vs){
+  tmp = df_num[, paste0(vs, ".Log2FC")]
+  ind = which(tmp == "positive_infinity")
+  tmp[ind] = "100"
+  
+  ind = which(tmp == "negative_infinity")
+  tmp[ind] = "-100"
+  
+  return(tmp)
+}))
+
+
+df_num = as.data.frame(do.call(cbind, lapply(1:(dim(df_num)[2]-1), FUN = function(i) as.numeric(df_num[,i]) )))
+df_num = cbind(df_num, df$Symbol)
+# df_num = as.data.frame(cbind(do.call(cbind, lapply(1:(dim(df_num)[2]-1), FUN = function(i) as.numeric(df_num[,i]) )), df_num[,dim(df_num)[2]]))
+# https://stackoverflow.com/questions/3418128/how-to-convert-a-factor-to-integer-numeric-without-loss-of-information
+# df_num = as.data.frame(cbind(do.call(cbind, lapply(1:(dim(df_num)[2]-1), FUN = function(i) as.numeric(levels(df_num[,i]))[df_num[,i]] )), df$Symbol))
+colnames(df_num) = col_df_num
+
+df_num[, paste0(vs_list, ".Log2FC")] = do.call(cbind, lapply(vs_list, FUN = function(vs){
+  tmp = df_num[, paste0(vs, ".Log2FC")]
+  tmp[which(tmp > 20)] = 20
+  tmp[which(tmp < -20)] = -20
+  return(tmp)
+}))
+
+
+lfc_list = lapply(vs_list, FUN = function(x) grep(paste0("^",x), colnames(df_num), ignore.case = T))
+
+volcano_plot = function (lfc_list, gdata, topnames=NULL){
+  gdata = gdata[, c(lfc_list, grep("Symbol", colnames(gdata), ignore.case = T)), drop = F]
+  print(head(gdata))
+  print(class(gdata))
+  col_name = colnames(gdata)
+  print(col_name)
+  ind_lfc = grep("Log2FC", col_name, ignore.case = T)
+  print(ind_lfc)
+  ind_p = grep("P_value", col_name, ignore.case = T)
+  ind_q = grep("q_value", col_name, ignore.case = T)
+  gdata[, ind_lfc] = as.numeric(gdata[, ind_lfc])
+  batch = strsplit(col_name[ind_lfc], "\\.")[[1]][1]
+  print(col_name[ind_lfc])
+  print(class(df[,ind_lfc]))
+  print(col_name[ind_p])
+  print(class(df[,ind_p]))
+  print(col_name[ind_q])
+  print(class(df[,ind_q]))
+  
+  
+  if (is.null(topnames)) {
+    topnames = c("Akt1","Akt2","Pik3cd","Pik3r1","Mtor","Krt14","Mki67","Sprr1a","Cdk1","Nfe2l2","Nox4","Trp63")
+    }
+  
+  VolcanoView(gdata, x = col_name[ind_lfc], y = col_name[ind_p], Label = "Symbol", main = paste0('Volcano Plot - ', batch), top = 0, topnames = topnames, alpha = 0.5, x_cutoff = 1,
+            # filename = file.path('plots', paste0("volcanoplot_", batch, ".png")), 
+            width = 2.5, height = 3)
+}
+
+lapply(lfc_list, FUN = volcano_plot, gdata = df_num)
+```
+
+-----
+
+
